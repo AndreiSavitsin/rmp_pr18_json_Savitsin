@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InputInfoFragment"
+    android:orientation="vertical"
+    android:background="@color/paleGreen">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/AddTaskToList"
+        android:layout_marginTop="100sp"
+        android:layout_marginLeft="90sp"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/InputTask"
+        android:layout_marginLeft="100sp"
+        android:layout_marginTop="170sp"/>
+
+    <EditText
+        android:id="@+id/taskInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/InputTask"
+        android:textSize="14sp"
+        android:layout_marginLeft="100sp"
+        android:layout_marginTop="190sp"
+        android:width="200sp"
+        android:background="@drawable/frame"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/InputDate"
+        android:layout_marginLeft="100sp"
+        android:layout_marginTop="230sp"/>
+
+    <EditText
+        android:id="@+id/dateInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/InputDate"
+        android:textSize="14sp"
+        android:layout_marginLeft="100sp"
+        android:layout_marginTop="250sp"
+        android:width="200sp"
+        android:background="@drawable/frame"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/InputPriority"
+        android:layout_marginLeft="100sp"
+        android:layout_marginTop="300sp"/>
+
+    <Spinner
+        android:id="@+id/spinPriority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame2"
+        android:layout_marginLeft="100sp"
+        android:layout_marginTop="320sp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame"
+        android:text="@string/AddTask"
+        android:textAllCaps="false"
+        android:layout_marginTop="385sp"
+        android:layout_marginLeft="100sp"
+        android:onClick="btnAddTask"
+        android:width="200sp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame"
+        android:text="@string/Back"
+        android:textAllCaps="false"
+        android:layout_marginTop="455sp"
+        android:layout_marginLeft="100sp"
+        android:onClick="btnBack"
+        android:width="200sp"/>
+
+</FrameLayout>

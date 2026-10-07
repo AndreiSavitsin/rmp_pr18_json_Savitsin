@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShowInfoFragment"
+    android:orientation="vertical"
+    android:background="@color/paleGreen">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/toDoList"
+        android:layout_marginTop="100sp"
+        android:layout_marginLeft="150sp"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ChooseTask"
+        android:layout_marginTop="150sp"
+        android:layout_marginLeft="120sp"
+        android:textSize="14sp"/>
+
+    <Spinner
+        android:id="@+id/spinTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame2"
+        android:layout_marginLeft="120sp"
+        android:layout_marginTop="180sp"/>
+
+    <TextView
+        android:id="@+id/tvTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Task"
+        android:layout_marginLeft="100sp"
+        android:layout_marginTop="230sp"/>
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Date"
+        android:layout_marginLeft="100sp"
+        android:layout_marginTop="255sp"/>
+
+    <TextView
+        android:id="@+id/tvPriority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Priority"
+        android:layout_marginLeft="100sp"
+        android:layout_marginTop="280sp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame"
+        android:text="@string/Back"
+        android:textAllCaps="false"
+        android:layout_marginTop="325sp"
+        android:layout_marginLeft="100sp"
+        android:onClick="btnBack"
+        android:width="200sp"/>
+
+</FrameLayout>
