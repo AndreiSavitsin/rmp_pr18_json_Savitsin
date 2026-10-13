@@ -17,8 +17,7 @@ import com.google.gson.reflect.TypeToken
 
 class show_info_fragment : Fragment() {
     private lateinit var pref: SharedPreferences
-    private val gson = Gson()
-    private lateinit var tasks: MutableList<Task>
+    private var tasks: MutableList<Task> = mutableListOf()
     private lateinit var tvTask: TextView
     private lateinit var tvDate: TextView
     private lateinit var tvPriority: TextView
@@ -26,6 +25,7 @@ class show_info_fragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         pref = requireActivity().getSharedPreferences("Tasks", Context.MODE_PRIVATE)
     }
 
@@ -36,26 +36,30 @@ class show_info_fragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_show_info, container, false)
 
-        tvTask = rootView.findViewById(R.id.tvTask)
-        tvDate = rootView.findViewById(R.id.tvDate)
-        tvPriority = rootView.findViewById(R.id.tvPriority)
-        spinTasks = rootView.findViewById(R.id.spinTasks)
+        tvTask = rootView.findViewById(R.id.tvTask) as TextView
+        tvDate = rootView.findViewById(R.id.tvDate) as TextView
+        tvPriority = rootView.findViewById(R.id.tvPriority) as TextView
+        spinTasks = rootView.findViewById(R.id.spinTasks) as Spinner
 
+        val gson = Gson()
         val json = pref.getString("tasks_json", "[]")
         val type = object : TypeToken<MutableList<Task>>() {}.type
-        tasks = gson.fromJson(json, type) ?: mutableListOf()
+        val loaded: MutableList<Task>? = gson.fromJson(json, type)
+        if (loaded != null) {
+            tasks = loaded
+        }
 
-        val names = tasks.map { it.task }
+        val names = ArrayList<String>()
+        for (t in tasks) {
+            names.add(t.task)
+        }
+
         val adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
             names
         )
         spinTasks.adapter = adapter
-
-        if (tasks.isNotEmpty()) {
-            showTask(0)
-        }
 
         spinTasks.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -64,23 +68,26 @@ class show_info_fragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                showTask(position)
+                val t = tasks[position]
+                tvTask.text = "Задача: " + t.task
+                tvDate.text = "Дата: " + t.date
+                tvPriority.text = "Приоритет: " + t.priority
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
         }
 
-        rootView.findViewById<Button>(R.id.buttonBack).setOnClickListener {
-            (activity as MainActivity).go(input_info_fragment())
+        val BackButton = rootView.findViewById<Button>(R.id.buttonBack)
+        BackButton.setOnClickListener {
+            btnBack()
         }
 
         return rootView
     }
 
-    private fun showTask(position: Int) {
-        val t = tasks[position]
-        tvTask.text = "Задача: ${t.task}"
-        tvDate.text = "Дата: ${t.date}"
-        tvPriority.text = "Приоритет: ${t.priority}"
+    fun btnBack() {
+        val mainActivity = activity as MainActivity
+        mainActivity.go(input_info_fragment())
     }
 }

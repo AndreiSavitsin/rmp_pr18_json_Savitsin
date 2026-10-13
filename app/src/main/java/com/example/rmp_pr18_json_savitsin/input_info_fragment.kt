@@ -16,14 +16,18 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class input_info_fragment : Fragment() {
+    private lateinit var task: Task
     private lateinit var taskInput: EditText
     private lateinit var date: EditText
     private lateinit var priority: Spinner
     private lateinit var pref: SharedPreferences
-    private val gson = Gson()
+    private lateinit var ed: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        task = Task()
+
         pref = requireActivity().getSharedPreferences("Tasks", Context.MODE_PRIVATE)
     }
 
@@ -34,9 +38,9 @@ class input_info_fragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_input_info, container, false)
 
-        taskInput = rootView.findViewById(R.id.taskInput)
-        date = rootView.findViewById(R.id.dateInput)
-        priority = rootView.findViewById(R.id.spinPriority)
+        taskInput = rootView.findViewById(R.id.taskInput) as EditText
+        date = rootView.findViewById(R.id.dateInput) as EditText
+        priority = rootView.findViewById(R.id.spinPriority) as Spinner
 
         val priorities = arrayOf("Низкий", "Средний", "Высокий")
         val adapter = ArrayAdapter(
@@ -46,10 +50,13 @@ class input_info_fragment : Fragment() {
         )
         priority.adapter = adapter
 
-        rootView.findViewById<Button>(R.id.buttonAddTask).setOnClickListener {
+        val AddButton = rootView.findViewById<Button>(R.id.buttonAddTask)
+        AddButton.setOnClickListener {
             btnAddTask()
         }
-        rootView.findViewById<Button>(R.id.buttonBack).setOnClickListener {
+
+        val BackButton = rootView.findViewById<Button>(R.id.buttonBack)
+        BackButton.setOnClickListener {
             btnBack()
         }
 
@@ -58,25 +65,32 @@ class input_info_fragment : Fragment() {
 
     fun btnAddTask() {
         if (taskInput.text.toString() != "" && date.text.toString() != "") {
-            val task = Task(
-                task = taskInput.text.toString(),
-                date = date.text.toString(),
-                priority = priority.selectedItem.toString()
-            )
 
+            task = Task()
+            task.task = taskInput.text.toString()
+            task.date = date.text.toString()
+            task.priority = priority.selectedItem.toString()
+
+            val gson = Gson()
             val json = pref.getString("tasks_json", "[]")
             val type = object : TypeToken<MutableList<Task>>() {}.type
-            val tasks: MutableList<Task> = gson.fromJson(json, type) ?: mutableListOf()
+            var tasks: MutableList<Task> = gson.fromJson(json, type)
+            if (tasks == null) {
+                tasks = mutableListOf<Task>()
+            }
 
             tasks.add(task)
 
             val newJson = gson.toJson(tasks)
-            pref.edit().putString("tasks_json", newJson).apply()
+            ed = pref.edit()
+            ed.putString("tasks_json", newJson)
+            ed.apply()
 
-            taskInput.text.clear()
-            date.text.clear()
+            taskInput.setText("")
+            date.setText("")
 
-            (activity as MainActivity).go(show_info_fragment())
+            val mainActivity = activity as MainActivity
+            mainActivity.go(show_info_fragment())
         } else {
             AlertDialog.Builder(requireContext())
                 .setTitle(getString(R.string.error))
@@ -88,6 +102,7 @@ class input_info_fragment : Fragment() {
     }
 
     fun btnBack() {
-        (activity as MainActivity).go(login_fragment())
+        val mainActivity = activity as MainActivity
+        mainActivity.go(login_fragment())
     }
 }
