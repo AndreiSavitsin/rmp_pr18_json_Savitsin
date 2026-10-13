@@ -17,4 +17,11 @@
     <string name="Date">Дата</string>
     <string name="Priority">Приоритет</string>
     <string name="InputPriority">Введите приоритет</string>
+    <string name="error">Ошибка</string>
+    <string name="fieldsMustBeFilledIn">Поля должны быть заполнены</string>
+    <string-array name="priorities">
+        <item>Низкий</item>
+        <item>Средний</item>
+        <item>Высокий</item>
+    </string-array>
 </resources>

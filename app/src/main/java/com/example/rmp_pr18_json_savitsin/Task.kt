@@ -5,6 +5,6 @@ import java.util.Date
 
 data class Task(
     var task: String = "",
-    var date: Date,
-    var priority: Spinner
+    var date: String = "",
+    var priority: String = ""
 )

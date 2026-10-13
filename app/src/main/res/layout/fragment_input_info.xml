@@ -69,6 +69,7 @@
         android:layout_marginTop="320sp"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonAddTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/frame"
@@ -80,6 +81,7 @@
         android:width="200sp"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/frame"
