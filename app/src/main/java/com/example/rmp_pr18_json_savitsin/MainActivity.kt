@@ -1,7 +1,7 @@
 package com.example.rmp_pr18_json_savitsin
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
 class MainActivity : AppCompatActivity() {
@@ -11,10 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, login_fragment())
-                .commit()
+            go(login_fragment())
         }
     }
 
@@ -22,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
             .commit()
     }
 }

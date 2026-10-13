@@ -64,7 +64,6 @@
         android:textAllCaps="false"
         android:layout_marginTop="325sp"
         android:layout_marginLeft="100sp"
-        android:onClick="btnBack"
         android:width="200sp"/>
 
 </FrameLayout>
